@@ -126,13 +126,13 @@ router.beforeEach((to,from,next)=>{
   if(to.meta.requiresAuth)
   {
     if(token){
-      // console.log(token)
+      console.log("have token");
       next();
     }
     else{
-      // console.log("no token")
+      console.log("no token");
       next({
-        path:'/login',
+        path:'/signin',
         query:{redirect:to.fullPath}
       });
     }

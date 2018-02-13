@@ -28,7 +28,7 @@ childRouter.post('/signin', async(ctx,next)=>{
         {
             isok=1;
             token=createToken(sno);
-            // console.log(token);
+            console.log(token);
             break;
         }
         
@@ -52,8 +52,7 @@ childRouter.post('/signin', async(ctx,next)=>{
 
 childRouter.get('/oppointment',checkToken,async(ctx,next)=>{
     let imformation;
-    // consoleconsole.log(ctx.request.query);
-    let login_id=ctx.request.query.login_id;
+    let login_id=ctx.request.query.login_id || ctx.state.user_id;
     await mysql.selectAppointment(login_id).then(result=>{
         imformation=JSON.parse(JSON.stringify(result));
     })
@@ -96,7 +95,8 @@ childRouter.get('/managerinventory',checkToken,async(ctx,next)=>{
 
 childRouter.get('/balance',checkToken,async(ctx,next)=>{
     let imformation;
-    let login_id=ctx.request.query.login_id;
+    // ctx.state.user_id是checkToken中设置的
+    let login_id=ctx.request.query.login_id  || ctx.state.user_id ;
     await mysql.selectBlance(login_id).then(result=>{
       
         imformation=JSON.parse(JSON.stringify(result));
@@ -171,7 +171,8 @@ childRouter.get('/changepassword',checkToken,async(ctx,next)=>{
     ctx.response.body=imformation;
 })
 childRouter.get('/getnotice',checkToken,async(ctx,next)=>{
-  
+    
+    
     let imformation;
    
     await mysql.getNotice().then(result=>{
