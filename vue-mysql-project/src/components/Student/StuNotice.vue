@@ -1,9 +1,7 @@
 <template>
 <div>
-    <h2>通知</h2>
   <el-table
-    :data="GetNotice"
-  >
+    :data="GetNotice">
      <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand">
@@ -55,6 +53,7 @@
 
 <script>
 import api from '../../axios.js'
+import StuNavagation from './StuNavagation'
 
   export default {
     data() {

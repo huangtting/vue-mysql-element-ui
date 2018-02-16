@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
+   <!-- 路由出口，路由匹配到组件会渲染在这里 -->
     <router-view></router-view>
+    
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'app'
 }
@@ -18,7 +20,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  width:100%;
   
 }
 </style>

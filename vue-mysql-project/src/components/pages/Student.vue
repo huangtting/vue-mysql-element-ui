@@ -1,6 +1,8 @@
 <template>
 <div>
-    <div>
+    <StuNavagation></StuNavagation>
+    <router-view></router-view>
+    <!-- <div>
         <MyOppointmentTable></MyOppointmentTable>
     </div>
     <div>
@@ -10,15 +12,16 @@
          <StuNotice></StuNotice>
     </div>
 
-    <el-button @click="changepassword">修改密码</el-button>
+    <el-button @click="changepassword">修改密码</el-button> -->
 
 </div>
 </template>
 <script>
-import StuInventoryTable from '../common/StuInventoryTable'
-import MyOppointmentTable from '../common/MyOppointmentTable'
-import StuNotice from '../common/StuNotice'
+import StuInventoryTable from '../Student/StuInventoryTable'
+import MyOppointmentTable from '../Student/MyOppointmentTable'
+import StuNotice from '../Student/StuNotice'
 import api from '../../axios.js'
+import StuNavagation from '../Student/StuNavagation'
 
 export default {
   data(){
@@ -59,14 +62,15 @@ export default {
   components:{
       StuInventoryTable,
       MyOppointmentTable,
-      StuNotice
+      StuNotice,
+      StuNavagation
   }
 }
 </script>
 <style scoped>
 div{
     text-align: left;
-    width: 1000px;
+    width: 100%;
 }
 </style>
 

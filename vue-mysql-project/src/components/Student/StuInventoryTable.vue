@@ -85,7 +85,7 @@ import api from '../../axios.js'
     mounted:function(){
         
          api.GetStuInventory().then((response)=>{  
-          console.log(response.date);      
+          // console.log(response.date);      
                         for(let i=0;i<response.data.length;i++)
                         {
                            let date=new Date(response.data[i].date);

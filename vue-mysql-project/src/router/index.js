@@ -12,8 +12,8 @@ const SignIn=resolve=>{
 
 
 const MyOppointmentTable=resolve=>{
-  require.ensure(['../components/common/MyOppointmentTable'],()=>{
-    resolve(require('../components/common/MyOppointmentTable'));
+  require.ensure(['../components/Student/MyOppointmentTable'],()=>{
+    resolve(require('../components/Student/MyOppointmentTable'));
   })
 
 };
@@ -25,11 +25,20 @@ const GymTable=resolve=>{
 };
 
 const ManagerNotice=resolve=>{
-  require.ensure(['../components/common/ManagerNotice'],()=>{
-    resolve(require('../components/common/ManagerNotice'));
+  require.ensure(['../components/Manager/ManagerNotice'],()=>{
+    resolve(require('../components/Manager/ManagerNotice'));
   })
 };
-
+const StuNotice=resolve=>{
+  require.ensure(['../components/Student/StuNotice'],()=>{
+    resolve(require('../components/Student/StuNotice'));
+  })
+};
+const StuInventory=resolve=>{
+  require.ensure(['../components/Student/StuInventoryTable'],()=>{
+    resolve(require('../components/Student/StuInventoryTable'));
+  })
+};
 const Student=resolve=>{
   require.ensure(['../components/pages/Student'],()=>{
     resolve(require('../components/pages/Student'));
@@ -57,7 +66,6 @@ const router= new Router({
   routes: [
     {
       path: '/',
-      
       name: 'HelloWorld',
       component: HelloWorld
     },
@@ -66,27 +74,11 @@ const router= new Router({
       name:'signin',
       component:SignIn
     },
-  
-    {
-      path:'/gym',
-      name:'GymTable',
-      component:GymTable,
-      meta: {
-        requiresAuth: true
-      }
-    },
+ 
     {
       path: '/myOppointment',
       name: 'MyOppointmentTable',
       component: MyOppointmentTable,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/managernotice',
-      name: 'ManagerNotice',
-      component: ManagerNotice,
       meta: {
         requiresAuth: true
       }
@@ -97,7 +89,24 @@ const router= new Router({
       component:Student,
       meta: {
         requiresAuth: true
-      }
+      },
+      children:[
+        {
+          path:'notice',
+          name:'StuNotice',
+          component:StuNotice
+        },
+        {
+          path:'myoppointment',
+          name:'MyOppointmentTable',
+          component:MyOppointmentTable
+        },
+        {
+          path:'order',
+          name:'StuInventory',
+          component:StuInventory
+        }
+      ]
     },
     {
       path:'/manager',
@@ -105,7 +114,25 @@ const router= new Router({
       component:Manager,
       meta: {
         requiresAuth: true
-      }
+      },
+      children:[
+        {
+          path: 'notice',
+          name: 'ManagerNotice',
+          component: ManagerNotice,
+          meta: {
+            requiresAuth: true
+          }
+        },  
+        {
+          path:'gym',
+          name:'GymTable',
+          component:GymTable,
+          meta: {
+            requiresAuth: true
+          }
+        }
+      ]
     },
     {
       path: '/test',

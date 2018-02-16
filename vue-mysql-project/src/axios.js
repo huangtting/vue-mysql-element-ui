@@ -35,16 +35,14 @@ axios_instance.interceptors.response.use(
             switch(err.response.status)
             {
                 case 401:
-                    alert("401");
                     // 清除token
-                   
                     // store.commit('UserLogout');
                     //跳转到登录页面
                      // 带查询参数，变成 /signin?redirect=router.currentRoute.fullPath
                     router.replace({
                         
-                        path:'signin',
-                        // query:{redirect :router.currentRoute.fullPath}
+                        path:'/signin',
+                        query:{redirect :router.currentRoute.fullPath}
                     });
             }
         }

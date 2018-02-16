@@ -44,10 +44,7 @@ export default {
         managerSubmint(){
             if(this.$data.form.loginId=='10086'&& this.$data.form.loginPassword=='10086')
             {
-                // let redirectUrl = decodeURIComponent('/manager');
-                                //跳转到指定的路由
-                                // console.log(this.$data.form.loginId);
-                                // this.$router.push({name:'Student',params: {login_id: this.$data.form.loginId}});
+    
                 this.$router.push({name:'Manager'})
             }
              else{
@@ -73,7 +70,8 @@ export default {
                                 //跳转到指定的路由
                                 // console.log(this.$data.form.loginId);
                                 // this.$router.push({name:'Student',params: {login_id: this.$data.form.loginId}});
-                                this.$router.push({name:'Student'})
+                                // this.$router.push({name:'Student'})
+                                this.$router.push({ path: '/student/notice' })
                         }
                         else{
                              this.$alert('密码错误', '提示', {

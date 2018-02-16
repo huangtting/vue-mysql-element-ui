@@ -1,6 +1,8 @@
 <template>
 <div>
-    <div>
+    <Navagation></Navagation>
+    <router-view></router-view>
+    <!-- <div>
         <Gym></Gym>
     </div>
     <div>
@@ -9,14 +11,16 @@
    
     <div>
         <ManagerNotice></ManagerNotice>
-    </div>
+    </div> -->
    
 </div>
 </template>
 <script>
 import Gym from '../common/GymTable'
-import ManagerNotice from '../common/ManagerNotice'
-import MangerInventory from '../common/ManagerInventoryTable'
+import ManagerNotice from '../Manager/ManagerNotice'
+import MangerInventory from '../Manager/ManagerInventoryTable'
+import Navagation from '../Manager/ManagerNavagation'
+
 export default {
   data(){
       return{
@@ -26,13 +30,14 @@ export default {
   components:{
     Gym,
     ManagerNotice,
-    MangerInventory
+    MangerInventory,
+    Navagation
   }
 }
 </script>
 <style scoped>
 div{
-    width:800px;
-    text-align:left;
+    width:100%;
+   
 }
 </style>
