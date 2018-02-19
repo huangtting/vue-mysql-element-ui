@@ -41,7 +41,10 @@ const mutations={
     },
     [types.CLEARNOTICE]:(state)=>{
         state.notice=[];
-        
+    },
+    [types.SetRole]:(state,data)=>{
+        state.role = data;
+        window.sessionStorage.setItem('userRole', data);
     },
 }
 export default mutations;

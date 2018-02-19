@@ -14,21 +14,32 @@ childRouter.post('/signin', async(ctx,next)=>{
     
     let sno=ctx.request.body.login_id;
     let password=ctx.request.body.login_password;
+    let role=ctx.request.body.role;
     let token;
-    let students;
-    await mysql.selectAllStudent().then(result=>{
-        students=JSON.parse(JSON.stringify(result));
-    })
+    let users;
+    if(role=='student')
+    {
+        await mysql.selectAllStudent().then(result=>{
+            users=JSON.parse(JSON.stringify(result));
+        })
+    }
+    else
+    {
+        await mysql.selectAllManager().then(result=>{
+            users=JSON.parse(JSON.stringify(result));
+        })
+    }
+    
     
     let isok=0;
-    for(let i=0;i<students.length;i++)
+    for(let i=0;i<users.length;i++)
     {
         
-        if(students[i].sno==sno&&students[i].password==password)
+        if(users[i].no==sno&&users[i].password==password)
         {
+            
             isok=1;
-            token=createToken(sno);
-            console.log(token);
+            token=createToken(sno,role);
             break;
         }
         
@@ -37,6 +48,7 @@ childRouter.post('/signin', async(ctx,next)=>{
     {
         ctx.response.body={
             isok:1,
+            role:role,
             token:token
         }
     }
@@ -52,6 +64,7 @@ childRouter.post('/signin', async(ctx,next)=>{
 
 childRouter.get('/oppointment',checkToken,async(ctx,next)=>{
     let imformation;
+   
     let login_id=ctx.request.query.login_id || ctx.state.user_id;
     await mysql.selectAppointment(login_id).then(result=>{
         imformation=JSON.parse(JSON.stringify(result));
@@ -85,6 +98,13 @@ childRouter.get('/gym',checkToken,async(ctx,next)=>{
 
 childRouter.get('/managerinventory',checkToken,async(ctx,next)=>{
     let imformation;
+    if(ctx.state.role!=='manager') 
+    {
+        ctx.status = 401;
+        ctx.body = {
+            message: '权限不足'
+        }
+    }
     await mysql.selectManagerInventory().then(result=>{
       
         imformation=JSON.parse(JSON.stringify(result));
@@ -106,7 +126,6 @@ childRouter.get('/balance',checkToken,async(ctx,next)=>{
 })
 
 childRouter.get('/insertorder',checkToken,async(ctx,next)=>{
-  
     let imformation;
     let site_id=ctx.request.query.site_id;
     let date=ctx.request.query.date;
@@ -135,7 +154,13 @@ childRouter.get('/changepassword',checkToken,async(ctx,next)=>{
 })
 
 childRouter.get('/closegym',checkToken,async(ctx,next)=>{
-  
+    if(ctx.state.role!=='manager') 
+    {
+        ctx.status = 401;
+        ctx.body = {
+            message: '权限不足'
+        }
+    }
     let imformation;
     let gym_id=ctx.request.query.gym_id;
     await mysql.closeGym(gym_id).then(result=>{
@@ -146,7 +171,13 @@ childRouter.get('/closegym',checkToken,async(ctx,next)=>{
 })
 
 childRouter.get('/opengym',checkToken,async(ctx,next)=>{
-  
+    if(ctx.state.role!=='manager') 
+    {
+        ctx.status = 401;
+        ctx.body = {
+            message: '权限不足'
+        }
+    }
     let imformation;
     // console.log(ctx.request);
     let gym_id=ctx.request.query.gym_id;
@@ -156,18 +187,6 @@ childRouter.get('/opengym',checkToken,async(ctx,next)=>{
     })
     
     // console.log(mysql.openGym);
-    ctx.response.body=imformation;
-})
-
-childRouter.get('/changepassword',checkToken,async(ctx,next)=>{
-  
-    let imformation;
-    let sno=ctx.request.query.sno;
-    let password=ctx.request.query.password;
-    await mysql.changePassword(sno,password).then(result=>{
-        imformation='OK';
-    })
-    
     ctx.response.body=imformation;
 })
 childRouter.get('/getnotice',checkToken,async(ctx,next)=>{
@@ -184,7 +203,13 @@ childRouter.get('/getnotice',checkToken,async(ctx,next)=>{
     
 })
 childRouter.get('/deletenotice',checkToken,async(ctx,next)=>{
-  
+    if(ctx.state.role!=='manager') 
+    {
+        ctx.status = 401;
+        ctx.body = {
+            message: '权限不足'
+        }
+    }
     let imformation;
     // console.log(ctx.request.query);
     let id=ctx.request.query.id;
@@ -198,7 +223,13 @@ childRouter.get('/deletenotice',checkToken,async(ctx,next)=>{
     
 })
 childRouter.get('/insertnotice',checkToken,async(ctx,next)=>{
-  
+    if(ctx.state.role!=='manager') 
+    {
+        ctx.status = 401;
+        ctx.body = {
+            message: '权限不足'
+        }
+    }
     let imformation;
     let title=ctx.request.query.title;
     let content=ctx.request.query.content;

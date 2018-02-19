@@ -10,3 +10,4 @@ export const ADDNOTICE = 'ADDNOTICE';
 export const DELETENOTICE = 'DELETENOTICE';
 export const CLEARNOTICE = 'CLEARNOTICE';
 export const UserLogout = 'UserLogout';
+export const SetRole = 'SetRole';

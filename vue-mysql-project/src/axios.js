@@ -8,8 +8,6 @@ axios.defaults.timeout=20000;
 const axios_instance =axios.create();
 axios_instance.interceptors.request.use(
     config => {
-        // console.log(store.state.token);
-      
         //每次发送请求之前检测都vuex存有token,那么都要放在请求头发送给服务器
         if(store.state.token){
             // console.log(store.state.token);
@@ -40,25 +38,21 @@ axios_instance.interceptors.response.use(
                     //跳转到登录页面
                      // 带查询参数，变成 /signin?redirect=router.currentRoute.fullPath
                     router.replace({
-                        
                         path:'/signin',
                         query:{redirect :router.currentRoute.fullPath}
                     });
             }
         }
-        // return Promise.reject(err.response);
+        return Promise.reject(err.response);
     }
 );
 export default{
     userSignin(data)
     {
-        console.log(data);
         return axios_instance.post("http:\/\/localhost:8081/signin",data);
     },
     GetOppointment(data)
     {
-        console.log(data);
-        
         return axios_instance.get("http:\/\/localhost:8081/oppointment",{params: data});
     },
     GetStuInventory()
@@ -67,7 +61,6 @@ export default{
     },
     GetGym()
     {
-        
         return axios_instance.get("http:\/\/localhost:8081/gym");
     },
     GetManagerInventory()

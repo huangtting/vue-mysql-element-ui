@@ -60,7 +60,11 @@ const Error404 = resolve => {
       resolve(require('../components/pages/404.vue'));
   }); 
 };
-
+const StuCenter = resolve => {
+  require.ensure(['../components/student/StuCenter.vue'], () => {
+    resolve(require('../components/student/StuCenter.vue'));
+  });
+};
 const router= new Router({
   mode:'history',
   routes: [
@@ -74,37 +78,50 @@ const router= new Router({
       name:'signin',
       component:SignIn
     },
- 
-    {
-      path: '/myOppointment',
-      name: 'MyOppointmentTable',
-      component: MyOppointmentTable,
-      meta: {
-        requiresAuth: true
-      }
-    },
     {
       path:'/student',
       name:'Student',
       component:Student,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        role:'student'
       },
       children:[
         {
           path:'notice',
           name:'StuNotice',
-          component:StuNotice
+          component:StuNotice,
+          meta: {
+            requiresAuth: true,
+            role:'student'
+          }
         },
         {
           path:'myoppointment',
           name:'MyOppointmentTable',
-          component:MyOppointmentTable
+          component:MyOppointmentTable,
+          meta: {
+            requiresAuth: true,
+            role:'student'
+          }
         },
         {
           path:'order',
           name:'StuInventory',
-          component:StuInventory
+          component:StuInventory,
+          meta: {
+            requiresAuth: true,
+            role:'student'
+          }
+        },
+        {
+          path:'center',
+          name:'StuCenter',
+          component:StuCenter,
+          meta: {
+            requiresAuth: true,
+            role:'student'
+          }
         }
       ]
     },
@@ -113,7 +130,8 @@ const router= new Router({
       name:'Manager',
       component:Manager,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        role:'manager'
       },
       children:[
         {
@@ -121,7 +139,8 @@ const router= new Router({
           name: 'ManagerNotice',
           component: ManagerNotice,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            role:'manager'
           }
         },  
         {
@@ -129,18 +148,17 @@ const router= new Router({
           name:'GymTable',
           component:GymTable,
           meta: {
-            requiresAuth: true
+            requiresAuth: true,
+            role:'manager'
           }
         }
+     
       ]
     },
     {
       path: '/test',
       name: 'error',
       component: Error404,
-      meta: {
-        requiresAuth: true
-      }
     }
   ]
 })
@@ -152,12 +170,11 @@ router.beforeEach((to,from,next)=>{
   
   if(to.meta.requiresAuth)
   {
-    if(token){
-      console.log("have token");
+    if(store.state.role===to.meta.role && token){
+    // if(token){
       next();
     }
     else{
-      console.log("no token");
       next({
         path:'/signin',
         query:{redirect:to.fullPath}

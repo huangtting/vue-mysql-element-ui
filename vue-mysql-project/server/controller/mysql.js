@@ -39,6 +39,11 @@ let selectAllStudent=function()
     let sql='select * from student ';
     return query(sql);
 }
+let selectAllManager=function()
+{
+    let sql='select * from manager ';
+    return query(sql);
+}
 let openGym=function(gym_id)
 {
     let sql="update gym set state='avail' where gym_id='"+gym_id+"';";
@@ -50,7 +55,7 @@ let openGym=function(gym_id)
 
 let selectAppointment=function(stuId)
 {
-    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && sno= "+stuId;
+    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && no= "+stuId;
     return query(sql);
 }
 
@@ -71,21 +76,21 @@ let selectManagerInventory=function()
 }
 let selectBlance=function(stuId)
 {
-    let sql="select balance from student where sno= "+stuId;
+    let sql="select balance from student where no= "+stuId;
     return query(sql);
 }
-let insertOrder=function(site_id,date,time,sno,state,price)
+let insertOrder=function(site_id,date,time,no,state,price)
 {
     let checkdate=date.substring(0,9)+(parseInt(date[9])+1);
     console.log(checkdate);
-    let sql="select add_appointment("+site_id+",'"+checkdate+"','"+time+"','"+sno+"')";
+    let sql="select add_appointment("+site_id+",'"+checkdate+"','"+time+"','"+no+"')";
     // 返回1 ，预约成功.返回0,余额不足
     return query(sql);
 }
-let changePassword=function(sno,password)
+let changePassword=function(no,password)
 {
     
-    let sql="update student set password='"+password+"' where sno='"+sno+"';";
+    let sql="update student set password='"+password+"' where no='"+no+"';";
     console.log(sql);
     // 返回1 ，预约成功.返回0,余额不足
     return query(sql);
@@ -134,5 +139,6 @@ module.exports={
     openGym,
     getNotice,
     deleteNotice,
-    insertNotice
+    insertNotice,
+    selectAllManager
 }

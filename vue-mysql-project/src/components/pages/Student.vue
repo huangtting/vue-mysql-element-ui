@@ -2,18 +2,9 @@
 <div>
     <StuNavagation></StuNavagation>
     <router-view></router-view>
-    <!-- <div>
-        <MyOppointmentTable></MyOppointmentTable>
-    </div>
-    <div>
-        <StuInventoryTable></StuInventoryTable>
-    </div>
-    <div>
-         <StuNotice></StuNotice>
-    </div>
+  
 
-    <el-button @click="changepassword">修改密码</el-button> -->
-
+   
 </div>
 </template>
 <script>
@@ -27,36 +18,6 @@ export default {
   data(){
       return{
           
-      }
-  },
-  methods:{
-      changepassword:function()
-      {
-           this.$prompt('请输入邮箱', '修改密码', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-       
-        }).then(({ value }) => {
-          
-          
-        // console.log(this.$store.state.userid);
-        api.changePassword({
-               sno:this.$store.state.userid,
-               password:value
-           }).then(
-                this.$message({
-                    type: 'success',
-                    message: '修改成功'
-                })
-           );
-        
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消输入'
-          });       
-        });
-
       }
   },
   components:{

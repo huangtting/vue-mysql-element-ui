@@ -8,9 +8,9 @@
                 <el-input v-model="form.loginPassword" type='password'></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit('form')">学生登录</el-button>
-                <el-button type="primary" @click="managerSubmint()">管理员登录</el-button>
-                <el-button @click="resetForm('form')">取消</el-button>
+                <el-button type="primary" button size="mini" @click="onSubmit('form','student')">学生登录</el-button>
+                <el-button type="primary" button size="mini" @click="onSubmit('form','manager')">管理员登录</el-button>
+                <el-button button size="mini" @click="resetForm('form')">清空</el-button>
                 
             </el-form-item>
         </el-form>
@@ -44,46 +44,47 @@ export default {
         managerSubmint(){
             if(this.$data.form.loginId=='10086'&& this.$data.form.loginPassword=='10086')
             {
-    
                 this.$router.push({name:'Manager'})
             }
-             else{
-                    this.$alert('密码错误', '提示', {
-                                confirmButtonText: '确定'
-                                });
-                }
+            else{
+                this.$alert('密码错误', '提示', { confirmButtonText: '确定'});
+            }
         },
-        onSubmit(formName) {
+        onSubmit(formName,role) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                
                     api.userSignin( {
                         login_id: this.$data.form.loginId,
-                        login_password: this.$data.form.loginPassword
+                        login_password: this.$data.form.loginPassword,
+                        role:role
                     }).then((response)=>{
-                        // console.log(response);
                         if(response.data.isok=='1')
                         {
-                            this.$store.commit('USERID', this.$data.form.loginId);
-                            this.$store.commit('LOGIN',response.data.token);
-                             let redirectUrl = decodeURIComponent('/student');
-                                //跳转到指定的路由
-                                // console.log(this.$data.form.loginId);
-                                // this.$router.push({name:'Student',params: {login_id: this.$data.form.loginId}});
-                                // this.$router.push({name:'Student'})
+                            if(response.data.role==='student')
+                            {
+                                this.$store.commit('SetRole','student');
+                                this.$store.commit('USERID', this.$data.form.loginId);
+                                this.$store.commit('LOGIN',response.data.token);
                                 this.$router.push({ path: '/student/notice' })
+                            }
+                            else
+                            {
+                                this.$store.commit('SetRole','manager');
+                                this.$store.commit('USERID', this.$data.form.loginId);
+                                this.$store.commit('LOGIN',response.data.token);
+                                this.$router.push({ path: '/manager/notice' })
+                            }
+                            
                         }
                         else{
-                             this.$alert('密码错误', '提示', {
-                            confirmButtonText: '确定',
-                          
+                            this.$alert('密码错误', '提示', {
+                            confirmButtonText: '确定'
                             });
                         }
                         
                        },(reject)=>{
                            console.log('post fail')
                        })
-                //    发送axios
                 } else {
                     return false;
                 }
@@ -99,7 +100,7 @@ export default {
 </script>
 <style scoped>
     div{
-        width:500px;
+        width:400px;
         display: inline-block;
     }
 </style>

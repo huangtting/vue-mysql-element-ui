@@ -7,7 +7,7 @@
                 <li><router-link to="/student/notice">通知中心</router-link></li>
                 <li><router-link to="/student/order">我要预约</router-link></li>
                 <li><router-link to="/student/myoppointment">我的订单</router-link></li>
-                <!-- <li><router-link to=""></router-link></li> -->
+                <li><router-link to="/student/center">个人中心</router-link></li>
             </ul>
         </nav>
         </header>

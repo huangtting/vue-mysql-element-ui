@@ -1,74 +1,156 @@
 <template>
     <div>
-      <h2>场馆信息</h2>
-    <el-table
-        ref="InventoryTable"
-        :data="tableData"
-        highlight-current-row
-        border
-        @current-change="handleCurrentChange"
-        >
+      <h2>场馆预定</h2>
+      <el-tabs>
+    <el-tab-pane label="东校区" name="east" >
+      <el-collapse accordion>
+        <el-collapse-item title="羽毛球馆" >
+        
+        </el-collapse-item>
+        <el-collapse-item title="网球馆" >
+        
+        </el-collapse-item>
+      
+      </el-collapse>
+      <!-- <el-table
+              ref="InventoryTable"
+              :data="tableData"
+              highlight-current-row
+              border
+              @current-change="handleCurrentChange"
+              >
 
-        <el-table-column
-        type="index"
-        width="50px">
-        </el-table-column>
+              <el-table-column
+              type="index"
+              width="50px">
+              </el-table-column>
 
-        <el-table-column
-        property="campus"
-        label="校区"
-        width="120px">
-        </el-table-column>
+              <el-table-column
+              property="campus"
+              label="校区"
+              width="120px">
+              </el-table-column>
 
-        <el-table-column
-        property="kind"
-        label="场馆"
-        width="120px">
-        </el-table-column>
+              <el-table-column
+              property="kind"
+              label="场馆"
+              width="120px">
+              </el-table-column>
 
-       <el-table-column
-        property="site_no"
-        label="场地号"
-        width="120px">
-        </el-table-column>
+            <el-table-column
+              property="site_no"
+              label="场地号"
+              width="120px">
+              </el-table-column>
 
-        <el-table-column
-        property="date"
-        label="日期"
-        width="150px">
-        </el-table-column>
+              <el-table-column
+              property="date"
+              label="日期"
+              width="150px">
+              </el-table-column>
 
-        <el-table-column
-        property="time"
-        label="时段"
-        width="120px">
-        </el-table-column>
+              <el-table-column
+              property="time"
+              label="时段"
+              width="120px">
+              </el-table-column>
 
-        <el-table-column
-        property="price"
-        label="价格"
-        width="100px">
-        </el-table-column>
+              <el-table-column
+              property="price"
+              label="价格"
+              width="100px">
+              </el-table-column>
 
-        <el-table-column
-        property="state"
-        label="状态"
-        width="100px">
-        </el-table-column>
+              <el-table-column
+              property="state"
+              label="状态"
+              width="100px">
+              </el-table-column>
 
-        <el-table-column>
-        <template slot-scope="scope">
-          <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
-        </template>
-          <!-- <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="order(scope.$index, scope.row)">我要预约</el-button>
-         
-        </template> -->
-        </el-table-column>
-    </el-table>
+              <el-table-column>
+              <template slot-scope="scope">
+                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
+              </template>
+              </el-table-column>
+          </el-table> -->
 
+    </el-tab-pane>
+    <el-tab-pane label="南校区" name="south">
+        <el-collapse-item title="羽毛球馆" >
+        <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+        <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+      </el-collapse-item>
+         <el-collapse-item title="网球馆" >
+        <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
+        <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+      </el-collapse-item>
+
+      <el-table
+              ref="InventoryTable"
+              :data="tableData"
+              highlight-current-row
+              border
+              @current-change="handleCurrentChange"
+              >
+
+              <el-table-column
+              type="index"
+              
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="campus"
+              label="校区"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="kind"
+              label="场馆"
+              >
+              </el-table-column>
+
+            <el-table-column
+              property="site_no"
+              label="场地号"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="date"
+              label="日期"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="time"
+              label="时段"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="price"
+              label="价格"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="state"
+              label="状态"
+              >
+              </el-table-column>
+
+              <el-table-column>
+              <template slot-scope="scope">
+                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
+              </template>
+              </el-table-column>
+          </el-table>
+
+    </el-tab-pane>
+   
+  </el-tabs>
     </div>
 </template>
 
@@ -83,9 +165,7 @@ import api from '../../axios.js'
       }
     },
     mounted:function(){
-        
-         api.GetStuInventory().then((response)=>{  
-          // console.log(response.date);      
+      api.GetStuInventory().then((response)=>{        
                         for(let i=0;i<response.data.length;i++)
                         {
                            let date=new Date(response.data[i].date);
@@ -97,11 +177,6 @@ import api from '../../axios.js'
                            console.log('get fail')
                        })
     },
-    computed: {
-      GetBalance () {
-        return this.$store.state.balance;
-      } 
-    },
     methods: {
       setCurrent(index,row) {
         this.$refs.inventoryTable.setCurrentRow(row);
@@ -109,7 +184,6 @@ import api from '../../axios.js'
       handleCurrentChange(val) {
         this.currentRow = val;
       },
-    
       order(index,row){
         if(row.state=='avail')
         {
@@ -160,9 +234,8 @@ import api from '../../axios.js'
   }
 </script>
 <style scoped>
-     div{
-        /* width:800px; */
-        /* display: inline-block; */
-        text-align:left;
+    div{
+        width:100%;
     }
+   
 </style>

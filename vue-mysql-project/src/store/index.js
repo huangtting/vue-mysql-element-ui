@@ -13,7 +13,8 @@ const state = {
     balance:'',
     consume:'',
     oppointment:[],
-    notice:[]
+    notice:[],
+    role:''
   
 };
 
