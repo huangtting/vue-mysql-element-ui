@@ -24,6 +24,9 @@ export default {
             margin:0;
             padding:0;
         }
+    div{
+        margin-bottom: 20px;
+    }
         header {
             background: #423f42;
             width: 100%;

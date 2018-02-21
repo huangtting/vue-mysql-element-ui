@@ -83,7 +83,42 @@ childRouter.get('/stuinventory',checkToken,async(ctx,next)=>{
    
     ctx.response.body=imformation;
 })
-
+childRouter.get('/east_badminton',checkToken,async(ctx,next)=>{
+    let imformation;
+    await mysql.selectEastBadminton().then(result=>{
+      
+        imformation=JSON.parse(JSON.stringify(result));
+    })
+   
+    ctx.response.body=imformation;
+})
+childRouter.get('/east_tennis',checkToken,async(ctx,next)=>{
+    let imformation;
+    await mysql.selectEastTennis().then(result=>{
+      
+        imformation=JSON.parse(JSON.stringify(result));
+    })
+   
+    ctx.response.body=imformation;
+})
+childRouter.get('/south_badminton',checkToken,async(ctx,next)=>{
+    let imformation;
+    await mysql.selectSouthBadminton().then(result=>{
+      
+        imformation=JSON.parse(JSON.stringify(result));
+    })
+   
+    ctx.response.body=imformation;
+})
+childRouter.get('/south_tennis',checkToken,async(ctx,next)=>{
+    let imformation;
+    await mysql.selectSouthTennis().then(result=>{
+      
+        imformation=JSON.parse(JSON.stringify(result));
+    })
+   
+    ctx.response.body=imformation;
+})
 
 childRouter.get('/gym',checkToken,async(ctx,next)=>{
   

@@ -29,9 +29,11 @@ export default {
 }
 </script>
 <style scoped>
+
 div{
     text-align: left;
     width: 100%;
+    
 }
 </style>
 

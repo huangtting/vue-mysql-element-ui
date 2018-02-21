@@ -164,14 +164,11 @@ const router= new Router({
 })
 
 router.beforeEach((to,from,next)=>{
-  // console.log(to);
-  // console.log(from);
   let token=store.state.token;
   
   if(to.meta.requiresAuth)
   {
     if(store.state.role===to.meta.role && token){
-    // if(token){
       next();
     }
     else{

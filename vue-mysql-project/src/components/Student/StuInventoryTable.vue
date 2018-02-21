@@ -1,115 +1,18 @@
 <template>
     <div>
-      <h2>场馆预定</h2>
-      <el-tabs>
-    <el-tab-pane label="东校区" name="east" >
-      <el-collapse accordion>
-        <el-collapse-item title="羽毛球馆" >
-        
-        </el-collapse-item>
-        <el-collapse-item title="网球馆" >
-        
-        </el-collapse-item>
-      
-      </el-collapse>
-      <!-- <el-table
+      <div>
+        <tabs>
+        <tab name="东校区" :selected="true">
+           <collapse>
+            <div slot="trigger">东校区羽毛球场</div>
+            <div slot='content'>
+            <el-table
               ref="InventoryTable"
-              :data="tableData"
+              :data="eastBadmintonData"
               highlight-current-row
               border
               @current-change="handleCurrentChange"
               >
-
-              <el-table-column
-              type="index"
-              width="50px">
-              </el-table-column>
-
-              <el-table-column
-              property="campus"
-              label="校区"
-              width="120px">
-              </el-table-column>
-
-              <el-table-column
-              property="kind"
-              label="场馆"
-              width="120px">
-              </el-table-column>
-
-            <el-table-column
-              property="site_no"
-              label="场地号"
-              width="120px">
-              </el-table-column>
-
-              <el-table-column
-              property="date"
-              label="日期"
-              width="150px">
-              </el-table-column>
-
-              <el-table-column
-              property="time"
-              label="时段"
-              width="120px">
-              </el-table-column>
-
-              <el-table-column
-              property="price"
-              label="价格"
-              width="100px">
-              </el-table-column>
-
-              <el-table-column
-              property="state"
-              label="状态"
-              width="100px">
-              </el-table-column>
-
-              <el-table-column>
-              <template slot-scope="scope">
-                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
-              </template>
-              </el-table-column>
-          </el-table> -->
-
-    </el-tab-pane>
-    <el-tab-pane label="南校区" name="south">
-        <el-collapse-item title="羽毛球馆" >
-        <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-        <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-      </el-collapse-item>
-         <el-collapse-item title="网球馆" >
-        <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-        <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-      </el-collapse-item>
-
-      <el-table
-              ref="InventoryTable"
-              :data="tableData"
-              highlight-current-row
-              border
-              @current-change="handleCurrentChange"
-              >
-
-              <el-table-column
-              type="index"
-              
-              >
-              </el-table-column>
-
-              <el-table-column
-              property="campus"
-              label="校区"
-              >
-              </el-table-column>
-
-              <el-table-column
-              property="kind"
-              label="场馆"
-              >
-              </el-table-column>
 
             <el-table-column
               property="site_no"
@@ -147,30 +50,222 @@
               </template>
               </el-table-column>
           </el-table>
+            </div>
+          </collapse>
+          <collapse>
+            <div slot="trigger">东校区网球场</div>
+            <div slot='content'> 
+               <el-table
+              ref="InventoryTable"
+              :data="eastTennisData"
+              highlight-current-row
+              border
+              @current-change="handleCurrentChange"
+              >
 
-    </el-tab-pane>
-   
-  </el-tabs>
+            <el-table-column
+              property="site_no"
+              label="场地号"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="date"
+              label="日期"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="time"
+              label="时段"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="price"
+              label="价格"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="state"
+              label="状态"
+              >
+              </el-table-column>
+
+              <el-table-column>
+              <template slot-scope="scope">
+                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
+              </template>
+              </el-table-column>
+          </el-table>
+            </div>
+          </collapse>
+        </tab>
+        <tab name="南校区">
+           <collapse>
+            <div slot="trigger">南校区羽毛球场</div>
+            <div slot='content'>
+               <el-table
+              ref="InventoryTable"
+              :data="southBadmintonData"
+              highlight-current-row
+              border
+              @current-change="handleCurrentChange"
+              >
+
+            <el-table-column
+              property="site_no"
+              label="场地号"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="date"
+              label="日期"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="time"
+              label="时段"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="price"
+              label="价格"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="state"
+              label="状态"
+              >
+              </el-table-column>
+
+              <el-table-column>
+              <template slot-scope="scope">
+                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
+              </template>
+              </el-table-column>
+          </el-table>
+            </div>
+          </collapse>
+          <collapse>
+            <div slot="trigger">南校区网球场</div>
+            <div slot='content'> 
+             <el-table
+              ref="InventoryTable"
+              :data="southTennisData"
+              highlight-current-row
+              border
+              @current-change="handleCurrentChange"
+              >
+
+            <el-table-column
+              property="site_no"
+              label="场地号"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="date"
+              label="日期"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="time"
+              label="时段"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="price"
+              label="价格"
+              >
+              </el-table-column>
+
+              <el-table-column
+              property="state"
+              label="状态"
+              >
+              </el-table-column>
+
+              <el-table-column>
+              <template slot-scope="scope">
+                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
+              </template>
+              </el-table-column>
+            </el-table>
+            </div>
+          </collapse>
+        </tab>
+      </tabs>
+    </div>
+
+
+     
     </div>
 </template>
 
 <script>
 import api from '../../axios.js'
+import tabs from '../common/tabs'
+import tab from '../common/tab'
+import collapse from '../common/collapse'
 
   export default {
     data() {
       return {
-        tableData: [],
+        eastBadmintonData: [],
+        eastTennisData:[],
+        southBadmintonData:[],
+        southTennisData:[],
         currentRow: null
       }
     },
     mounted:function(){
-      api.GetStuInventory().then((response)=>{        
+      api.southBadminton().then((response)=>{        
                         for(let i=0;i<response.data.length;i++)
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-                          this.tableData.push(response.data[i]);
+                          this.southBadmintonData.push(response.data[i]);
+                        }
+                       
+                       },(reject)=>{
+                           console.log('get fail')
+                       })
+      api.southTennis().then((response)=>{        
+                        for(let i=0;i<response.data.length;i++)
+                        {
+                           let date=new Date(response.data[i].date);
+                          response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          this.southTennisData.push(response.data[i]);
+                        }
+                       
+                       },(reject)=>{
+                           console.log('get fail')
+                       })
+      api.eastBadminton().then((response)=>{        
+                        for(let i=0;i<response.data.length;i++)
+                        {
+                           let date=new Date(response.data[i].date);
+                          response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          this.eastBadmintonData.push(response.data[i]);
+                        }
+                       
+                       },(reject)=>{
+                           console.log('get fail')
+                       })
+      api.eastTennis().then((response)=>{        
+                        for(let i=0;i<response.data.length;i++)
+                        {
+                           let date=new Date(response.data[i].date);
+                          response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          this.eastTennisData.push(response.data[i]);
                         }
                        
                        },(reject)=>{
@@ -230,12 +325,17 @@ import api from '../../axios.js'
         }
          
       }
+    },
+    components:{
+      tabs,
+      tab,
+      collapse
     }
   }
 </script>
 <style scoped>
-    div{
-        width:100%;
-    }
-   
+  div{
+          width:99%;
+      }
 </style>
+

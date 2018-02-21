@@ -99,5 +99,25 @@ export default{
     {
         
         return axios_instance.get("http:\/\/localhost:8081/insertnotice",{params: data});
+    },
+    southTennis(data)
+    {
+        
+        return axios_instance.get("http:\/\/localhost:8081/south_tennis",{params: data});
+    },
+    eastTennis(data)
+    {
+        
+        return axios_instance.get("http:\/\/localhost:8081/east_tennis",{params: data});
+    },
+    southBadminton(data)
+    {
+        
+        return axios_instance.get("http:\/\/localhost:8081/south_badminton",{params: data});
+    },
+    eastBadminton(data)
+    {
+        
+        return axios_instance.get("http:\/\/localhost:8081/east_badminton",{params: data});
     }
 }

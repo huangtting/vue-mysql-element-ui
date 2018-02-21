@@ -126,6 +126,29 @@ let insertNotice=function(title,content)
     
     return query(sql);
 }
+
+let selectEastBadminton=function(title,content)
+{
+    let sql="select * from east_badminton";
+    return query(sql);
+}
+let selectEastTennis=function(title,content)
+{
+    let sql="select * from east_tennis";
+    return query(sql);
+}
+let selectSouthBadminton=function(title,content)
+{
+    let sql="select * from south_badminton";
+    return query(sql);
+}
+let selectSouthTennis=function(title,content)
+{
+    let sql="select * from south_tennis";
+    return query(sql);
+}
+
+
 module.exports={
     selectAllStudent,
     selectAppointment,
@@ -140,5 +163,9 @@ module.exports={
     getNotice,
     deleteNotice,
     insertNotice,
-    selectAllManager
+    selectAllManager,
+    selectEastBadminton,
+    selectEastTennis,
+    selectSouthBadminton,
+    selectSouthTennis
 }
