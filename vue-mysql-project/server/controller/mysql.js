@@ -53,17 +53,13 @@ let openGym=function(gym_id)
 }
 
 
-let selectAppointment=function(stuId)
+let selectAppointment=function(stuId,currentPage,page_size)
 {
-    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && no= "+stuId;
+    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && no= "+stuId + " limit "+currentPage*page_size+","+page_size;
+    console.log(sql);
     return query(sql);
 }
 
-let selectStuInventory=function()
-{
-    let sql="SELECT * FROM stuinventory;"
-    return query(sql);
-}
 let selectGym=function()
 {
     let sql="select * from gym; ";
@@ -87,15 +83,16 @@ let insertOrder=function(site_id,date,time,no,state,price)
     // 返回1 ，预约成功.返回0,余额不足
     return query(sql);
 }
-let changePassword=function(no,password)
+let changePassword=function(no,newpassword)
 {
-    
-    let sql="update student set password='"+password+"' where no='"+no+"';";
-    console.log(sql);
-    // 返回1 ，预约成功.返回0,余额不足
+    let sql="update student set password='"+newpassword+"' where no='"+no+"';";
     return query(sql);
 }
-
+let checkPassword=function(no)
+{
+    let sql="select password from student where no="+no;
+    return query(sql);
+}
 
 let closeGym=function(gym_id)
 {
@@ -152,7 +149,6 @@ let selectSouthTennis=function(title,content)
 module.exports={
     selectAllStudent,
     selectAppointment,
-    selectStuInventory,
     selectGym,
     selectManagerInventory,
     selectBlance,
@@ -167,5 +163,6 @@ module.exports={
     selectEastBadminton,
     selectEastTennis,
     selectSouthBadminton,
-    selectSouthTennis
+    selectSouthTennis,
+    checkPassword
 }

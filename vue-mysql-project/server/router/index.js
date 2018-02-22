@@ -64,9 +64,11 @@ childRouter.post('/signin', async(ctx,next)=>{
 
 childRouter.get('/oppointment',checkToken,async(ctx,next)=>{
     let imformation;
-   
+  
     let login_id=ctx.request.query.login_id || ctx.state.user_id;
-    await mysql.selectAppointment(login_id).then(result=>{
+    let currentPage=ctx.request.query.currentPage;
+    let page_size=ctx.request.query.page_size;
+    await mysql.selectAppointment(login_id,currentPage,page_size).then(result=>{
         imformation=JSON.parse(JSON.stringify(result));
     })
     // console.log(imformation);
@@ -169,7 +171,6 @@ childRouter.get('/insertorder',checkToken,async(ctx,next)=>{
     let state=ctx.request.query.state;
     let price=ctx.request.query.price;
     await mysql.insertOrder(site_id,date,time,sno,state,price).then(result=>{
-        
         imformation='OK';
     })
     
@@ -180,12 +181,27 @@ childRouter.get('/changepassword',checkToken,async(ctx,next)=>{
   
     let imformation;
     let sno=ctx.request.query.sno;
-    let password=ctx.request.query.password;
-    await mysql.changePassword(sno,password).then(result=>{
-        imformation='OK';
-    })
-    
-    ctx.response.body=imformation;
+    let oldpassword=ctx.request.query.oldpassword;
+    let newpassword=ctx.request.query.newpassword;
+    let password;
+    await mysql.checkPassword(sno).then(result=>{
+        
+        password=JSON.parse(JSON.stringify(result))[0].password;
+        console.log(password);
+    });
+    if(password!==oldpassword)
+    {
+        console.log("no")
+        ctx.response.body="Fail";
+    }
+    else{
+        await mysql.changePassword(sno,newpassword).then(res=>{
+        console.log("ok?")
+        ctx.response.body="OK";
+        })
+    }
+
+
 })
 
 childRouter.get('/closegym',checkToken,async(ctx,next)=>{

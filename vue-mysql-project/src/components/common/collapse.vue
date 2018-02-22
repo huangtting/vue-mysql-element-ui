@@ -1,7 +1,7 @@
 <template>
   <div>    
-        <div v-on:click="selectCollapse()"  class="container">
-            <div class="trigger">
+        <div  class="container">
+            <div class="trigger" v-on:click="selectCollapse()" >
                 <slot name="trigger"></slot>
             </div>
             <div v-show="isActive" class="content" >

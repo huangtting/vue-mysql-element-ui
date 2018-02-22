@@ -65,14 +65,17 @@ export default {
                                 this.$store.commit('SetRole','student');
                                 this.$store.commit('USERID', this.$data.form.loginId);
                                 this.$store.commit('LOGIN',response.data.token);
-                                this.$router.push({ path: '/student/notice' })
+                                let redirect = decodeURIComponent(this.$route.query.redirect || '/student/notice');
+                                this.$router.push({path: redirect});
                             }
                             else
                             {
                                 this.$store.commit('SetRole','manager');
                                 this.$store.commit('USERID', this.$data.form.loginId);
                                 this.$store.commit('LOGIN',response.data.token);
-                                this.$router.push({ path: '/manager/notice' })
+                                let redirect = decodeURIComponent(this.$route.query.redirect || '/manager/notice');
+                                this.$router.push({path: redirect});
+                        
                             }
                             
                         }
