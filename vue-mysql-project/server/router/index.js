@@ -171,7 +171,10 @@ childRouter.get('/insertorder',checkToken,async(ctx,next)=>{
     let state=ctx.request.query.state;
     let price=ctx.request.query.price;
     await mysql.insertOrder(site_id,date,time,sno,state,price).then(result=>{
-        imformation='OK';
+        console.log(result);
+        if(result[0]===1)
+            imformation='OK';
+        else imformation='Fail'
     })
     
     ctx.response.body=imformation;
@@ -187,7 +190,6 @@ childRouter.get('/changepassword',checkToken,async(ctx,next)=>{
     await mysql.checkPassword(sno).then(result=>{
         
         password=JSON.parse(JSON.stringify(result))[0].password;
-        console.log(password);
     });
     if(password!==oldpassword)
     {
@@ -217,6 +219,7 @@ childRouter.get('/closegym',checkToken,async(ctx,next)=>{
     await mysql.closeGym(gym_id).then(result=>{
         imformation='OK';
     })
+
     
     ctx.response.body=imformation;
 })
@@ -298,9 +301,19 @@ childRouter.get('/insertnotice',checkToken,async(ctx,next)=>{
 childRouter.get('/', async(ctx,next)=>{
     ctx.response.body="hello";
 });
+childRouter.get('/deposit',checkToken,async(ctx,next)=>{
+  
+    let imformation;
+    let sno=ctx.request.query.sno;
+    let money=ctx.request.query.money;
+    
 
-//需要先检查权限的路由
-// childRouter.get('/user', checkToken, UserController.GetAllUsers);
-// childRouter.post('/delUser', checkToken, UserController.DelUser);
+    await mysql.deposit(sno,money).then(result=>{
+        imformation='OK';
+    })
+    
+    ctx.response.body=imformation;
+    
+})
 
 module.exports = childRouter;

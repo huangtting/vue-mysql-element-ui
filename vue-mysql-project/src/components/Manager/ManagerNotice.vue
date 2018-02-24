@@ -1,6 +1,29 @@
 <template>
 <div>
     <h2>通知</h2>
+    <collapse>
+      <div slot="trigger">发布新通知</div>
+      <div slot='content'>
+         <el-form ref="form" v-bind:model="addform" label-width="100px"  >
+            <el-form-item label="标题" prop="newtitle">
+                <el-input v-model="addform.newtitle"></el-input>
+            </el-form-item>
+
+            <el-form-item label="内容" prop="newcontent">
+                <el-input
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 4}"
+                placeholder="请输入内容"
+                v-model="textarea3">
+              </el-input>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button type="primary" @click="addNotice()">发布新通知</el-button>
+            </el-form-item>
+        </el-form>
+      </div>
+    </collapse>
   <el-table
     :data="GetNotice"
   >
@@ -17,13 +40,13 @@
     <el-table-column
       label="通知"
       prop="title"
-      width="450px">
+     >
     </el-table-column>
 
     <el-table-column
       label="日期"
       prop="date"
-      width="120px">
+      >
     </el-table-column>
 
     <el-table-column
@@ -35,32 +58,14 @@
           </template>
     </el-table-column>
   </el-table>
-  <div>
- <h2>新增通知</h2>
-
-   <el-form ref="form" v-bind:model="addform" label-width="100px"  >
-            <el-form-item label="标题" prop="newtitle">
-                <el-input v-model="addform.newtitle"></el-input>
-            </el-form-item>
-
-            <el-form-item label="内容" prop="newcontent">
-                <el-input v-model="addform.newcontent"></el-input>
-            </el-form-item>
-
-            <el-form-item>
-                <el-button type="primary" @click="addNotice()">发布新通知</el-button>
-            </el-form-item>
-        </el-form>
-  </div>
- 
-
+  
 </div>
   
 </template>
 
 <style>
   div{
-    width: 60%;
+    width: 95%;
     margin:0;
   }
   .demo-table-expand {
@@ -79,6 +84,7 @@
 
 <script>
 import api from '../../axios.js'
+import collapse from '../common/collapse'
 
   export default {
     data() {
@@ -143,9 +149,14 @@ import api from '../../axios.js'
           // this.$store.commit('ADDNOTICE',response.data[i]);
         })
       }
+    },
+    components:{
+      collapse
     }
   }
 </script>
 <style scoped>
-
+div{
+  text-align:left;
+}
 </style>

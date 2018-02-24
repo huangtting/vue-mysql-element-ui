@@ -55,7 +55,7 @@ let openGym=function(gym_id)
 
 let selectAppointment=function(stuId,currentPage,page_size)
 {
-    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && no= "+stuId + " limit "+currentPage*page_size+","+page_size;
+    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && no= "+stuId + " order by date desc limit "+currentPage*page_size+","+page_size;
     console.log(sql);
     return query(sql);
 }
@@ -77,9 +77,8 @@ let selectBlance=function(stuId)
 }
 let insertOrder=function(site_id,date,time,no,state,price)
 {
-    let checkdate=date.substring(0,9)+(parseInt(date[9])+1);
-    console.log(checkdate);
-    let sql="select add_appointment("+site_id+",'"+checkdate+"','"+time+"','"+no+"')";
+    
+    let sql="select add_appointment("+site_id+ ",'"+date+"','"+time+"','"+no+"')";
     // 返回1 ，预约成功.返回0,余额不足
     return query(sql);
 }
@@ -98,7 +97,6 @@ let closeGym=function(gym_id)
 {
     
     let sql="update gym set state='non-avail' where gym_id='"+gym_id+"';";
-    console.log(sql);
     // 返回1 ，预约成功.返回0,余额不足
     return query(sql);
 }
@@ -144,8 +142,11 @@ let selectSouthTennis=function(title,content)
     let sql="select * from south_tennis";
     return query(sql);
 }
-
-
+let deposit=function(sno,money)
+{
+    let sql='update student set balance= balance+ '+money+' where no='+sno;
+    return query(sql);
+}
 module.exports={
     selectAllStudent,
     selectAppointment,
@@ -164,5 +165,6 @@ module.exports={
     selectEastTennis,
     selectSouthBadminton,
     selectSouthTennis,
-    checkPassword
+    checkPassword,
+    deposit
 }

@@ -72,7 +72,8 @@ export default{
         return axios_instance.get("http:\/\/localhost:8081/balance",{params: data});
     },
     InsertOrder(data)
-    {      
+    {       console.log(data);
+        
         return axios_instance.get("http:\/\/localhost:8081/insertorder",{params: data});
     },
     changePassword(data)
@@ -96,8 +97,8 @@ export default{
         return axios_instance.get("http:\/\/localhost:8081/deletenotice",{params: data});
     },
     insertNotice(data)
-    {
-        
+    {   
+       
         return axios_instance.get("http:\/\/localhost:8081/insertnotice",{params: data});
     },
     southTennis(data)
@@ -107,7 +108,6 @@ export default{
     },
     eastTennis(data)
     {
-        
         return axios_instance.get("http:\/\/localhost:8081/east_tennis",{params: data});
     },
     southBadminton(data)
@@ -119,5 +119,9 @@ export default{
     {
         
         return axios_instance.get("http:\/\/localhost:8081/east_badminton",{params: data});
+    },
+    deposit(data)
+    {
+        return axios_instance.get("http:\/\/localhost:8081/deposit",{params: data});
     }
 }

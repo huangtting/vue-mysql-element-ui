@@ -16,7 +16,7 @@
 </div>
 </template>
 <script>
-import Gym from '../common/GymTable'
+import Gym from '../Manager/GymTable'
 import ManagerNotice from '../Manager/ManagerNotice'
 import MangerInventory from '../Manager/ManagerInventoryTable'
 import Navagation from '../Manager/ManagerNavagation'

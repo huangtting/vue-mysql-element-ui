@@ -1,8 +1,9 @@
 <template>
     <div>
-      <div>
+     
         <tabs>
         <tab name="东校区" :selected="true">
+            <h2>今明场馆订单:</h2>
            <collapse>
             <div slot="trigger">东校区羽毛球场</div>
             <div slot='content'>
@@ -44,11 +45,6 @@
               >
               </el-table-column>
 
-              <el-table-column>
-              <template slot-scope="scope">
-                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
-              </template>
-              </el-table-column>
           </el-table>
             </div>
           </collapse>
@@ -93,16 +89,12 @@
               >
               </el-table-column>
 
-              <el-table-column>
-              <template slot-scope="scope">
-                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
-              </template>
-              </el-table-column>
           </el-table>
             </div>
           </collapse>
         </tab>
         <tab name="南校区">
+            <h2>今明场馆订单:</h2>
            <collapse>
             <div slot="trigger">南校区羽毛球场</div>
             <div slot='content'>
@@ -144,11 +136,6 @@
               >
               </el-table-column>
 
-              <el-table-column>
-              <template slot-scope="scope">
-                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
-              </template>
-              </el-table-column>
           </el-table>
             </div>
           </collapse>
@@ -156,7 +143,7 @@
             <div slot="trigger">南校区网球场</div>
             <div slot='content'> 
              <el-table
-            
+              ref="InventoryTable"
               :data="southTennisData"
               highlight-current-row
               border
@@ -193,21 +180,14 @@
               >
               </el-table-column>
 
-              <el-table-column>
-              <template slot-scope="scope">
-                <el-button type="text" @click="order(scope.$index,scope.row)" size="mini">点击预约</el-button>
-              </template>
-              </el-table-column>
             </el-table>
             </div>
           </collapse>
         </tab>
+         
       </tabs>
-    </div>
-
-
-     
-    </div>
+          
+    </div> 
 </template>
 
 <script>
@@ -224,7 +204,7 @@ import collapse from '../common/collapse'
         southBadmintonData:[],
         southTennisData:[],
         currentRow: null,
-        
+        date: '',
       }
     },
     mounted:function(){
@@ -289,6 +269,13 @@ import collapse from '../common/collapse'
                 cancelButtonText: '取消',
                 type: 'warning'
               }).then(() => {
+                this.$message({
+                  type: 'success',
+                  message: '预约成功!'
+
+                });
+                row.state='non-avail';
+                this.$store.commit('USERBALANCE',row.price);
                 let data={
                   "date":row.date,
                   "campus":row.campus,
@@ -298,7 +285,7 @@ import collapse from '../common/collapse'
                   "price":row.price,
                   "state":'undone'
                 }
-                
+                this.$store.commit('SETOPPOINTMENT',data);
                 api.InsertOrder({
                   site_id:row.site_id,
                   date:row.date,
@@ -307,25 +294,15 @@ import collapse from '../common/collapse'
                   state:'undone',
                   price:row.price
                 }).then((response=>{
-                  if(response.data==='OK')
-                  {
-                    this.$store.commit('SETOPPOINTMENT',data);
-                    row.state='non-avail';
-                     this.$store.commit('USERBALANCE',row.price);
-                    this.$message({
-                          type: 'success',
-                          message: '预约成功!'
+                  console.log(response);
+                }));
 
-                        });  
-                  }
-                }),err=>{
-                  this.$message({
-                      type: 'info',
-                      message: '已取消预约'
-                    });   
-                });
-
-              })
+              }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: '已取消预约'
+                });          
+              });
         }
          
       }
@@ -339,7 +316,8 @@ import collapse from '../common/collapse'
 </script>
 <style scoped>
   div{
-          width:99%;
-      }
+        width:99%;
+        text-align:left;
+    }
 </style>
 

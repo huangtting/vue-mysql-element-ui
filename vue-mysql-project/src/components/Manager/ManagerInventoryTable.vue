@@ -16,6 +16,7 @@
 
         <el-table-column
         property="campus"
+        
         label="校区"
         width="120px">
         </el-table-column>

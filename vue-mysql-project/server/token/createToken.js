@@ -5,7 +5,7 @@ module.exports =function(user_id,role){
         user_id:user_id,
         role:role
     },'testtesttesttesthuangtting',{
-        expiresIn:20*60
+        expiresIn:30*60
     });
 
     return token;

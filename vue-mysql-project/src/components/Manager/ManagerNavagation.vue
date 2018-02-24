@@ -6,6 +6,7 @@
             <ul>
                 <li><router-link to="/manager/notice">通知中心</router-link></li>
                 <li><router-link to="/manager/gym">场馆管理</router-link></li>
+                <li><router-link to="/manager/order">订单查询</router-link></li>
             </ul>
         </nav>
         </header>

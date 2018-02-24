@@ -19,10 +19,16 @@ const MyOppointmentTable=resolve=>{
 };
 
 const GymTable=resolve=>{
-  require.ensure(['../components/common/GymTable'],()=>{
-    resolve(require('../components/common/GymTable'));
+  require.ensure(['../components/Manager/GymTable'],()=>{
+    resolve(require('../components/Manager/GymTable'));
   })
 };
+const ManagerOrder=resolve=>{
+  require.ensure(['../components/Manager/ManagerOrder'],()=>{
+    resolve(require('../components/Manager/ManagerOrder'));
+  })
+};
+
 
 const ManagerNotice=resolve=>{
   require.ensure(['../components/Manager/ManagerNotice'],()=>{
@@ -151,6 +157,16 @@ const router= new Router({
             requiresAuth: true,
             role:'manager'
           }
+        },
+        {
+          path:'order',
+          name:'Order',
+          component:ManagerOrder,
+          meta: {
+            requiresAuth: true,
+            role:'manager'
+          }
+          
         }
      
       ]

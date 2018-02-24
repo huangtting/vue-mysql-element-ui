@@ -10,19 +10,19 @@
         <el-table-column
         property="campus"
         label="校区"
-        width="120px">
+        >
         </el-table-column>
 
         <el-table-column
         property="kind"
         label="场馆"
-        width="120px">
+        >
         </el-table-column>
 
        <el-table-column
         property="state"
         label="状态"
-        width="120px">
+        >
         </el-table-column>
    
         <el-table-column
@@ -57,7 +57,6 @@ import api from '../../axios.js'
   mounted:function(){
         
          api.GetGym().then((response)=>{  
-          console.log(response.date);      
                         for(let i=0;i<response.data.length;i++)
                         {
                           this.tableData.push(response.data[i]);
