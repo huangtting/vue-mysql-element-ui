@@ -2,23 +2,12 @@
 <div>
     <Navagation></Navagation>
     <router-view></router-view>
-    <!-- <div>
-        <Gym></Gym>
-    </div>
-    <div>
-        <MangerInventory></MangerInventory>
-    </div>
-   
-    <div>
-        <ManagerNotice></ManagerNotice>
-    </div> -->
    
 </div>
 </template>
 <script>
 import Gym from '../Manager/GymTable'
 import ManagerNotice from '../Manager/ManagerNotice'
-import MangerInventory from '../Manager/ManagerInventoryTable'
 import Navagation from '../Manager/ManagerNavagation'
 
 export default {
@@ -30,7 +19,6 @@ export default {
   components:{
     Gym,
     ManagerNotice,
-    MangerInventory,
     Navagation
   }
 }

@@ -51,6 +51,10 @@ export default{
     {
         return axios_instance.post("http:\/\/localhost:8081/signin",data);
     },
+    userSignUp(data)
+    {
+        return axios_instance.post("http:\/\/localhost:8081/signup",data);
+    },
     GetOppointment(data)
     {
         return axios_instance.get("http:\/\/localhost:8081/oppointment",{params: data});

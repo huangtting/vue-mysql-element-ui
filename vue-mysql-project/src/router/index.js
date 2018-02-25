@@ -10,6 +10,12 @@ const SignIn=resolve=>{
   })
 };
 
+const SignUp=resolve=>{
+  require.ensure(['../components/pages/SignUp'],()=>{
+    resolve(require('../components/pages/SignUp'));
+  })
+};
+
 
 const MyOppointmentTable=resolve=>{
   require.ensure(['../components/Student/MyOppointmentTable'],()=>{
@@ -75,14 +81,14 @@ const router= new Router({
   mode:'history',
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
       path:'/signin',
       name:'signin',
       component:SignIn
+    },
+    {
+      path:'/signup',
+      name:'signup',
+      component:SignUp
     },
     {
       path:'/student',
@@ -170,11 +176,6 @@ const router= new Router({
         }
      
       ]
-    },
-    {
-      path: '/test',
-      name: 'error',
-      component: Error404,
     }
   ]
 })

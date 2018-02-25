@@ -39,6 +39,20 @@ let selectAllStudent=function()
     let sql='select * from student ';
     return query(sql);
 }
+let signUp=function(no,password,role){
+    if(role==='学生')
+    {
+        let sql='insert into student values( '+no+', '+password+', 0, 0)';
+       
+        return query(sql);
+    }
+    else{
+        let sql='insert into manager values( '+no+', '+password+ ')';
+       
+        return query(sql);
+    }
+    
+}
 let selectAllManager=function()
 {
     let sql='select * from manager ';
@@ -47,16 +61,14 @@ let selectAllManager=function()
 let openGym=function(gym_id)
 {
     let sql="update gym set state='avail' where gym_id='"+gym_id+"';";
-    console.log(sql);
-   
     return query(sql);
 }
 
 
 let selectAppointment=function(stuId,currentPage,page_size)
 {
-    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && no= "+stuId + " order by date desc limit "+currentPage*page_size+","+page_size;
-    console.log(sql);
+  
+    let sql="select date,campus,time,kind,site_no,appointment.price,appointment.state from appointment,gym,sites where appointment.site_id=sites.site_id && sites.gym_id=gym.gym_id && no= "+stuId + " order by date desc limit "+(currentPage)*page_size+","+page_size;
     return query(sql);
 }
 
@@ -112,7 +124,6 @@ let deleteNotice=function(id)
 {
     
     let sql="delete from notice where id="+id;
-   console.log(sql);
     return query(sql);
 }
 let insertNotice=function(title,content)
@@ -166,5 +177,6 @@ module.exports={
     selectSouthBadminton,
     selectSouthTennis,
     checkPassword,
-    deposit
+    deposit,
+    signUp
 }

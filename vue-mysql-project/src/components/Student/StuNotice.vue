@@ -15,13 +15,13 @@
     <el-table-column
       label="通知"
       prop="title"
-      width="450px">
+     >
     </el-table-column>
 
     <el-table-column
       label="日期"
       prop="date"
-      width="120px">
+     >
     </el-table-column>
 
   </el-table>
@@ -34,10 +34,10 @@
 
 <style>
   div{
-    width: 60%;
+    width: 100%;
     margin:0;
   }
-  .demo-table-expand {
+  /* .demo-table-expand {
     font-size: 0;
   }
   .demo-table-expand label {
@@ -48,7 +48,7 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
-  }
+  } */
 </style>
 
 <script>

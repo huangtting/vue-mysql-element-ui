@@ -11,8 +11,7 @@ const state = {
     token: window.sessionStorage.getItem('token'),
     userid: '',
     balance:'',
-    consume:'',
-    oppointment:[],
+ 
     notice:[],
     role:''
   

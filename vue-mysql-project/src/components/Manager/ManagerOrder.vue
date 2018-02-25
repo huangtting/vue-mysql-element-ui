@@ -44,7 +44,11 @@
               label="状态"
               >
               </el-table-column>
-
+              <el-table-column
+              property="no"
+              label="预约人"
+              >
+              </el-table-column>
           </el-table>
             </div>
           </collapse>
@@ -88,7 +92,12 @@
               label="状态"
               >
               </el-table-column>
-
+            
+             <el-table-column
+              property="no"
+              label="预约人"
+              >
+              </el-table-column>
           </el-table>
             </div>
           </collapse>
@@ -135,7 +144,11 @@
               label="状态"
               >
               </el-table-column>
-
+            <el-table-column
+              property="no"
+              label="预约人"
+              >
+              </el-table-column>
           </el-table>
             </div>
           </collapse>
@@ -179,7 +192,11 @@
               label="状态"
               >
               </el-table-column>
-
+            <el-table-column
+              property="no"
+              label="预约人"
+              >
+              </el-table-column>
             </el-table>
             </div>
           </collapse>
@@ -213,6 +230,7 @@ import collapse from '../common/collapse'
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          if(response.data[i].no===null) response.data[i].no='暂无人预定';
                           this.southBadmintonData.push(response.data[i]);
                         }
                        
@@ -224,6 +242,7 @@ import collapse from '../common/collapse'
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          if(response.data[i].no===null) response.data[i].no='暂无人预定';
                           this.southTennisData.push(response.data[i]);
                         }
                        
@@ -235,6 +254,7 @@ import collapse from '../common/collapse'
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          if(response.data[i].no===null) response.data[i].no='暂无人预定';
                           this.eastBadmintonData.push(response.data[i]);
                         }
                        
@@ -246,6 +266,7 @@ import collapse from '../common/collapse'
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          if(response.data[i].no===null) response.data[i].no='暂无人预定';
                           this.eastTennisData.push(response.data[i]);
                         }
                        
@@ -260,53 +281,8 @@ import collapse from '../common/collapse'
       handleCurrentChange(val) {
         this.currentRow = val;
       },
-      order(index,row){
-        if(row.state=='avail')
-        {
-          
-             this.$confirm('是否确定预约？', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-              }).then(() => {
-                this.$message({
-                  type: 'success',
-                  message: '预约成功!'
-
-                });
-                row.state='non-avail';
-                this.$store.commit('USERBALANCE',row.price);
-                let data={
-                  "date":row.date,
-                  "campus":row.campus,
-                  "time":row.time,
-                  "kind":row.kind,
-                  "site_no":row.site_no,
-                  "price":row.price,
-                  "state":'undone'
-                }
-                this.$store.commit('SETOPPOINTMENT',data);
-                api.InsertOrder({
-                  site_id:row.site_id,
-                  date:row.date,
-                  time:row.time,
-                  sno:this.$store.state.userid,
-                  state:'undone',
-                  price:row.price
-                }).then((response=>{
-                  console.log(response);
-                }));
-
-              }).catch(() => {
-                this.$message({
-                  type: 'info',
-                  message: '已取消预约'
-                });          
-              });
-        }
-         
-      }
     },
+        
     components:{
       tabs,
       tab,

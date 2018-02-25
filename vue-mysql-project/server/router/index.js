@@ -61,6 +61,21 @@ childRouter.post('/signin', async(ctx,next)=>{
     
 
 });
+childRouter.post('/signup', async(ctx,next)=>{
+    
+    let no=ctx.request.body.no;
+    let password=ctx.request.body.password;
+    let role=ctx.request.body.identity;
+   
+    
+    await mysql.signUp(no,password,role).then(result=>{
+        ctx.response.body='OK';
+    })
+ 
+    
+    
+  
+});
 
 childRouter.get('/oppointment',checkToken,async(ctx,next)=>{
     let imformation;
@@ -71,7 +86,6 @@ childRouter.get('/oppointment',checkToken,async(ctx,next)=>{
     await mysql.selectAppointment(login_id,currentPage,page_size).then(result=>{
         imformation=JSON.parse(JSON.stringify(result));
     })
-    // console.log(imformation);
     ctx.response.body=imformation;
 })
 
@@ -171,7 +185,7 @@ childRouter.get('/insertorder',checkToken,async(ctx,next)=>{
     let state=ctx.request.query.state;
     let price=ctx.request.query.price;
     await mysql.insertOrder(site_id,date,time,sno,state,price).then(result=>{
-        console.log(result);
+      
         if(result[0]===1)
             imformation='OK';
         else imformation='Fail'
@@ -193,12 +207,12 @@ childRouter.get('/changepassword',checkToken,async(ctx,next)=>{
     });
     if(password!==oldpassword)
     {
-        console.log("no")
+        
         ctx.response.body="Fail";
     }
     else{
         await mysql.changePassword(sno,newpassword).then(res=>{
-        console.log("ok?")
+      
         ctx.response.body="OK";
         })
     }
@@ -233,14 +247,12 @@ childRouter.get('/opengym',checkToken,async(ctx,next)=>{
         }
     }
     let imformation;
-    // console.log(ctx.request);
+   
     let gym_id=ctx.request.query.gym_id;
-    // console.log(gym_id);
     await mysql.openGym(gym_id).then(result=>{
         imformation='OK';
     })
-    
-    // console.log(mysql.openGym);
+
     ctx.response.body=imformation;
 })
 childRouter.get('/getnotice',checkToken,async(ctx,next)=>{
@@ -265,7 +277,7 @@ childRouter.get('/deletenotice',checkToken,async(ctx,next)=>{
         }
     }
     let imformation;
-    // console.log(ctx.request.query);
+    
     let id=ctx.request.query.id;
     
     await mysql.deleteNotice(id).then(result=>{

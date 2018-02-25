@@ -10,7 +10,7 @@
             <el-form-item>
                 <el-button type="primary" button size="mini" @click="onSubmit('form','student')">学生登录</el-button>
                 <el-button type="primary" button size="mini" @click="onSubmit('form','manager')">管理员登录</el-button>
-                <el-button button size="mini" @click="resetForm('form')">清空</el-button>
+                <el-button button size="mini" @click="route" >注册</el-button>
                 
             </el-form-item>
         </el-form>
@@ -93,12 +93,13 @@ export default {
                 }
             });
         },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
+        route() {
+            this.$router.push({path: '/signup'});;
         }
     
         
     }
+  
 }
 </script>
 <style scoped>

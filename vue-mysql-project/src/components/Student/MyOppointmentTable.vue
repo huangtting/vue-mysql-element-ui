@@ -82,7 +82,7 @@ import api from '../../axios.js'
   
     },
     mounted:function(){
-     
+        let now=new Date();
          api.GetOppointment({
                         login_id: this.$store.state.userid,
                         currentPage:0,
@@ -93,6 +93,13 @@ import api from '../../axios.js'
                         {
                           let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          let hour=now.getHours();
+                          let deadline=response.data[i].time.substr(6,2);
+
+                          if(deadline >= hour)
+                          {
+                            response.data[i].state='done';
+                          } 
                         // console.log(response.data)
                           // this.$store.commit('SETOPPOINTMENT',response.data[i]);
                           this.oppointmentData.push(response.data[i]);
@@ -107,7 +114,7 @@ import api from '../../axios.js'
      handleCurrentPage:function (currentPage) {
         api.GetOppointment({
                         login_id: this.$store.state.userid,
-                        currentPage:currentPage,
+                        currentPage:currentPage-1,
                         page_size:this.page_size
                     }).then((response)=>{   
                            this.oppointmentData=[];

@@ -228,11 +228,21 @@ import collapse from '../common/collapse'
       }
     },
     mounted:function(){
+      let now=new Date();
       api.southBadminton().then((response)=>{        
                         for(let i=0;i<response.data.length;i++)
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                          let hour=now.getHours();
+                          let deadline=response.data[i].time.substr(6,2);
+
+                          if(deadline >= hour)
+                          {
+                            response.data[i].state='non-avail';
+                          } 
+                         
+                         
                           this.southBadmintonData.push(response.data[i]);
                         }
                        
@@ -244,6 +254,13 @@ import collapse from '../common/collapse'
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                            let hour=now.getHours();
+                          let deadline=response.data[i].time.substr(6,2);
+
+                          if(deadline >= hour)
+                          {
+                            response.data[i].state='non-avail';
+                          } 
                           this.southTennisData.push(response.data[i]);
                         }
                        
@@ -255,6 +272,13 @@ import collapse from '../common/collapse'
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                            let hour=now.getHours();
+                          let deadline=response.data[i].time.substr(6,2);
+
+                          if(deadline >= hour)
+                          {
+                            response.data[i].state='non-avail';
+                          } 
                           this.eastBadmintonData.push(response.data[i]);
                         }
                        
@@ -266,6 +290,13 @@ import collapse from '../common/collapse'
                         {
                            let date=new Date(response.data[i].date);
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+                            let hour=now.getHours();
+                          let deadline=response.data[i].time.substr(6,2);
+
+                          if(deadline >= hour)
+                          {
+                            response.data[i].state='non-avail';
+                          } 
                           this.eastTennisData.push(response.data[i]);
                         }
                        
