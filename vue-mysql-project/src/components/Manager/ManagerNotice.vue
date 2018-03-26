@@ -14,7 +14,7 @@
                 type="textarea"
                 :autosize="{ minRows: 2, maxRows: 4}"
                 placeholder="请输入内容"
-                v-model="textarea3">
+                v-model="addform.newcontent">
               </el-input>
             </el-form-item>
 
@@ -121,7 +121,7 @@ import collapse from '../common/collapse'
     methods:{
       deleteNotice(index,row)
       {
-        console.log('    '+row.id);
+        // console.log('    '+row.id);
           this.$store.commit('DELETENOTICE',index);
 
           api.deleteNotice({
@@ -134,20 +134,13 @@ import collapse from '../common/collapse'
             title:this.$data.addform.newtitle,
             content:this.$data.addform.newcontent
         }).then((response)=>{
-          this.$store.commit('CLEARNOTICE');
-         api.GetNotice().then((response)=>{  
-          console.log(response.date);      
-            for(let i=0;i<response.data.length;i++)
-            {
-              this.$store.commit('ADDNOTICE',response.data[i]);
-              
-            }                       
+                        
            },(reject)=>{
               console.log('get fail')
            })
-          // console.log(response.body);
-          // this.$store.commit('ADDNOTICE',response.data[i]);
-        })
+
+         this.$store.commit('ADDNOTICE',{'content':this.$data.addform.newcontent,'title':this.$data.addform.newtitle,'date':new Date().toLocaleDateString()});
+       
       }
     },
     components:{

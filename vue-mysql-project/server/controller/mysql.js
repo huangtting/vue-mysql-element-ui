@@ -91,6 +91,7 @@ let insertOrder=function(site_id,date,time,no,state,price)
 {
     
     let sql="select add_appointment("+site_id+ ",'"+date+"','"+time+"','"+no+"')";
+    // console.log(sql);
     // 返回1 ，预约成功.返回0,余额不足
     return query(sql);
 }
@@ -129,7 +130,7 @@ let deleteNotice=function(id)
 let insertNotice=function(title,content)
 {
     let sql="insert into notice(title,content,date) values('"+title+"','"+content+"',curdate());"
-    
+    console.log(sql);
     return query(sql);
 }
 

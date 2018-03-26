@@ -76,8 +76,7 @@ export default{
         return axios_instance.get("http:\/\/localhost:8081/balance",{params: data});
     },
     InsertOrder(data)
-    {       console.log(data);
-        
+    {    
         return axios_instance.get("http:\/\/localhost:8081/insertorder",{params: data});
     },
     changePassword(data)

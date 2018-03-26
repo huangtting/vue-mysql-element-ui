@@ -236,8 +236,8 @@ import collapse from '../common/collapse'
                           response.data[i].date=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
                           let hour=now.getHours();
                           let deadline=response.data[i].time.substr(6,2);
-
-                          if(deadline >= hour)
+                          console.log(deadline);
+                          if(deadline <= hour)
                           {
                             response.data[i].state='non-avail';
                           } 
@@ -257,7 +257,7 @@ import collapse from '../common/collapse'
                             let hour=now.getHours();
                           let deadline=response.data[i].time.substr(6,2);
 
-                          if(deadline >= hour)
+                          if(deadline <=  hour)
                           {
                             response.data[i].state='non-avail';
                           } 
@@ -275,7 +275,7 @@ import collapse from '../common/collapse'
                             let hour=now.getHours();
                           let deadline=response.data[i].time.substr(6,2);
 
-                          if(deadline >= hour)
+                          if(deadline <= hour)
                           {
                             response.data[i].state='non-avail';
                           } 
@@ -293,7 +293,7 @@ import collapse from '../common/collapse'
                             let hour=now.getHours();
                           let deadline=response.data[i].time.substr(6,2);
 
-                          if(deadline >= hour)
+                          if(deadline <= hour)
                           {
                             response.data[i].state='non-avail';
                           } 
@@ -338,9 +338,11 @@ import collapse from '../common/collapse'
                   state:'undone',
                   price:row.price
                 }).then((response=>{
+                  console.log(response);
                   if(response.data==='OK')
                   {
-                    this.$store.commit('SETOPPOINTMENT',data);
+                    
+                    // this.$store.commit('SETOPPOINTMENT',data);
                     row.state='non-avail';
                      this.$store.commit('USERBALANCE',row.price);
                     this.$message({
@@ -348,6 +350,12 @@ import collapse from '../common/collapse'
                           message: '预约成功!'
 
                         });  
+                  }
+                  else{
+                     this.$message({
+                      type: 'info',
+                      message: '预约失败'
+                    });  
                   }
                 }),err=>{
                   this.$message({

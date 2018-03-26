@@ -185,10 +185,12 @@ childRouter.get('/insertorder',checkToken,async(ctx,next)=>{
     let state=ctx.request.query.state;
     let price=ctx.request.query.price;
     await mysql.insertOrder(site_id,date,time,sno,state,price).then(result=>{
-      
-        if(result[0]===1)
+    //   console.log(result);
+    //     console.log('result[0]:'+result[0]);
+    // 此处有bug
+        // if(result[0]===1)
             imformation='OK';
-        else imformation='Fail'
+        // else imformation='Fail'
     })
     
     ctx.response.body=imformation;
